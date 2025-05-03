@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "48262949353",
+    "project_id": "foodanalyzer-fc47a",
+    "storage_bucket": "foodanalyzer-fc47a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48262949353:android:1980ff36ff5e6a0100c378",
+        "android_client_info": {
+          "package_name": "aritra.seal.food_analyzer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJT1MLMpHkagHpAdwn--dqgXNZ6zTo8Wc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#FAFAFA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Food Image -->
+        <ImageView
+            android:id="@+id/foodImage"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Food Title -->
+        <TextView
+            android:id="@+id/foodTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#000"
+            android:paddingBottom="8dp"/>
+
+        <!-- Food Rating -->
+        <TextView
+            android:id="@+id/foodRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#FFA500"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"/>
+
+        <!-- Food Price -->
+        <TextView
+            android:id="@+id/foodPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#008000"
+            android:textStyle="bold"
+            android:paddingBottom="16dp"/>
+
+        <!-- Buy Now Button -->
+        <Button
+            android:id="@+id/buyNowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy Now"
+            android:backgroundTint="#FF5722"
+            android:textColor="#FFF"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Nutritional Information Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nutritional Information"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:paddingBottom="8dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calories: 250 kcal"
+                android:textSize="16sp"
+                android:paddingBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Protein: 10g"
+                android:textSize="16sp"
+                android:paddingBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/carbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carbs: 30g"
+                android:textSize="16sp"
+                android:paddingBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/fats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fats: 12g"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Back Button -->
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:backgroundTint="#757575"
+            android:textColor="#FFF"
+            android:padding="12dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

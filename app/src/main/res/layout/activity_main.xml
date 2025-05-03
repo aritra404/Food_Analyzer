@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    tools:context=".MainActivity">
+
+    <!-- AppBar with TabLayout -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food Categories"
+                android:textSize="22sp"
+                android:textColor="@color/primary_text"
+                android:fontFamily="sans-serif-medium" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:tabMode="scrollable"
+            app:tabGravity="start"
+            app:tabTextAppearance="@style/CustomTabTextAppearance"
+            app:tabSelectedTextColor="@color/primary_color"
+            app:tabTextColor="@color/secondary_text"
+            app:tabIndicatorColor="@color/primary_color"
+            app:tabIndicatorHeight="3dp"
+            app:tabRippleColor="@color/ripple_color" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ViewPager2 for Swiping between Tabs -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="80dp"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- Extended Floating Action Button for Scan -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnScan"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="24dp"
+        android:text="Scan Product"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/primary_color"
+        app:icon="@drawable/ic_barcode_scan"
+        app:iconTint="@color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -3,39 +3,330 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@android:color/white">
+    android:paddingTop="24dp"
 
-    <EditText
-        android:id="@+id/ingredientsInput"
+    android:backgroundTint="#F5F5F5">
+
+    <!-- Header -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Enter ingredient list here"
-        android:textSize="16sp"
+        android:layout_height="56dp"
         android:background="@android:color/white"
-        android:textColor="@android:color/black" />
+        android:elevation="2dp"
+        android:paddingHorizontal="16dp">
 
-    <Button
-        android:id="@+id/scanButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Scan Ingredients" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Foodie"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textColor="#1F2937" />
 
-    <Button
-        android:id="@+id/analyzeButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Analyze Ingredients" />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
 
-    <TextView
-        android:id="@+id/resultText"
+            android:contentDescription="Settings" />
+
+    </RelativeLayout>
+
+    <!-- Navigation Tabs -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:text="Result will appear here"
-        android:textSize="18sp"
-        android:textColor="@android:color/black" />
+        android:layout_height="48dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tabAnalyze"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Analyze"
+            android:textSize="14sp"
+            android:textColor="#1F2937"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tabProducts"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Products"
+            android:textSize="14sp"
+            android:textColor="#9CA3AF"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tabHistory"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="History"
+            android:textSize="14sp"
+            android:textColor="#9CA3AF"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tabFavorites"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Favorites"
+            android:textSize="14sp"
+            android:textColor="#9CA3AF"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+    <!-- Main Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#E5C5B5">
+
+                    <!-- Camera Preview inside CardView -->
+                    <androidx.camera.view.PreviewView
+                        android:id="@+id/previewView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter" />
+
+                    <!-- Capture Button -->
+                    <Button
+                        android:id="@+id/captureButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Capture"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="16dp"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- No Food Detected Text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:text="No food detected"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1F2937" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:text="Take a photo of your food to analyze its nutritional\nvalue and find healthy recipes."
+                android:textSize="14sp"
+                android:textColor="#6B7280"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp" />
+
+            <!-- Ingredients Input -->
+            <EditText
+                android:id="@+id/ingredientsInput"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:hint="Enter ingredient list here"
+                android:textSize="16sp"
+                android:textColor="#1F2937"
+                android:textColorHint="#9CA3AF"
+                android:paddingHorizontal="16dp"
+                android:inputType="textMultiLine" />
+
+            <!-- Scan Ingredients Button -->
+            <Button
+                android:id="@+id/scanButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/secondary_button_background"
+                android:text="Scan Ingredients"
+                android:textColor="#374151"
+                android:textSize="16sp"
+
+                android:drawablePadding="8dp"
+                android:gravity="center" />
+
+            <!-- Analyze Button -->
+            <Button
+                android:id="@+id/analyzeButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/secondary_button_background"
+                android:text="Analyze Ingredients"
+                android:textColor="#374151"
+                android:textSize="16sp"
+                android:gravity="center" />
+
+            <!-- Result Text -->
+            <TextView
+                android:id="@+id/resultText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Result will appear here"
+                android:textSize="16sp"
+                android:textColor="#6B7280"
+                android:padding="16dp"
+
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:elevation="8dp"
+        android:paddingVertical="8dp">
+
+        <LinearLayout
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+
+                android:contentDescription="Home" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+
+                android:contentDescription="Search"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navCamera"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+
+                android:contentDescription="Camera" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navFavorites"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+
+                android:contentDescription="Favorites" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+
+                android:contentDescription="Profile" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -20,7 +20,9 @@
 
         <!-- Make sure we use material components -->
         <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
-        <item name="extendedFloatingActionButtonStyle">@style/Widget.MaterialComponents.ExtendedFloatingActionButton</item>
+        <item name="extendedFloatingActionButtonStyle">
+            @style/Widget.MaterialComponents.ExtendedFloatingActionButton
+        </item>
     </style>
 
     <!-- Tab text style -->
@@ -36,5 +38,10 @@
         <item name="cardElevation">2dp</item>
         <item name="contentPadding">0dp</item>
         <item name="cardBackgroundColor">@color/card_background</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Food_Analyzer" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 </resources>

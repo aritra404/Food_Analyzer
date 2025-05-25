@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginHorizontal="4dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/productNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#1F2937"
+            android:text="Product Name Example"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/brandText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#6B7280"
+            android:text="Brand: Example Brand"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" /> <TextView
+        android:id="@+id/benefitsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#374151"
+        android:text="• Rich in fiber\n• Low in sugar\n• Good for heart health"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone" /> <Button
+        android:id="@+id/buyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buy Now"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/primary_button_background"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:minHeight="0dp"
+        android:minWidth="0dp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

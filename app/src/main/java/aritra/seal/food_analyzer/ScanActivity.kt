@@ -2,6 +2,7 @@ package aritra.seal.food_analyzer
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +12,14 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
@@ -28,6 +37,7 @@ class ScanActivity : AppCompatActivity() {
     private lateinit var scanButton: Button
     private lateinit var resultText: TextView
     private lateinit var geminiApiHelper: GeminiApiHelper
+
 
     val recognizer: TextRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
@@ -50,6 +60,28 @@ class ScanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan)
 
+
+        val previewView = findViewById<PreviewView>(R.id.previewView)
+        val captureButton = findViewById<Button>(R.id.captureButton)
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.CAMERA),
+                101
+            )
+        } else {
+            // Permission already granted, start the camera
+            startCamera(previewView)
+        }
+
+
+        captureButton.setOnClickListener {
+            takePhoto()
+        }
+
         // Initialize views
         ingredientsInput = findViewById(R.id.ingredientsInput)
         analyzeButton = findViewById(R.id.analyzeButton)
@@ -57,7 +89,7 @@ class ScanActivity : AppCompatActivity() {
         scanButton = findViewById(R.id.scanButton)
 
         // Initialize Gemini API helper with API Key
-        geminiApiHelper = GeminiApiHelper("YOUR_GEMINI_API_KEY")
+        geminiApiHelper = GeminiApiHelper("AIzaSyBTPSWqcv1bPsghiM4gRttVL3xYhFvqB84")
 
         // Button to analyze manually entered ingredients
         analyzeButton.setOnClickListener {
@@ -74,6 +106,56 @@ class ScanActivity : AppCompatActivity() {
             openCamera()
         }
     }
+    private var imageCapture: ImageCapture? = null
+
+    private fun startCamera(previewView: PreviewView) {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+
+        cameraProviderFuture.addListener({
+            val cameraProvider = cameraProviderFuture.get()
+            val preview = Preview.Builder().build().also {
+                it.setSurfaceProvider(previewView.surfaceProvider)
+            }
+
+            imageCapture = ImageCapture.Builder().build()
+
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+            try {
+                cameraProvider.unbindAll()
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, imageCapture
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun takePhoto() {
+        val imageCapture = imageCapture ?: return
+
+        val photoFile = File.createTempFile("captured", ".jpg", cacheDir)
+
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    val savedUri = Uri.fromFile(photoFile)
+                    startCrop(savedUri)
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    resultText.text = "Capture failed: ${exception.message}"
+                }
+            }
+        )
+    }
+
 
     private fun openCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -93,8 +175,6 @@ class ScanActivity : AppCompatActivity() {
             .withOptions(options)
             .start(this)
     }
-
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -133,9 +213,28 @@ class ScanActivity : AppCompatActivity() {
     private fun analyzeIngredients(ingredients: String) {
         resultText.text = "Analyzing..."
         CoroutineScope(Dispatchers.Main).launch {
-            val result = geminiApiHelper.analyzeIngredients(ingredients)
-            resultText.text = result
+            val (healthStatus, unhealthyPercent) = geminiApiHelper.analyzeIngredients(ingredients)
+            if (healthStatus == "Error") {
+                resultText.text = "Analysis failed."
+            } else {
+                val message = buildString {
+                    append("Status: $healthStatus\n")
+                    if (unhealthyPercent != null) append("Unhealthy Percentage: $unhealthyPercent%")
+                }
+                resultText.text = message
+                // Navigate to ResultActivity with proper data
+                navigateToResultScreen(healthStatus, unhealthyPercent, ingredients)
+            }
         }
+    }
+
+    private fun navigateToResultScreen(healthStatus: String, unhealthyPercent: Int?, ingredients: String) {
+        val intent = Intent(this, ResultActivity::class.java).apply {
+            putExtra(ResultActivity.EXTRA_HEALTH_STATUS, healthStatus)
+            putExtra(ResultActivity.EXTRA_UNHEALTHY_PERCENT, unhealthyPercent ?: 0)
+            putExtra(ResultActivity.EXTRA_INGREDIENTS, ingredients)
+        }
+        startActivity(intent)
     }
 
     private fun saveBitmapToFile(bitmap: Bitmap): Uri {
@@ -146,4 +245,3 @@ class ScanActivity : AppCompatActivity() {
         return Uri.fromFile(tempFile)
     }
 }
-
